@@ -72,6 +72,9 @@ instance/
 # Scrapy stuff:
 .scrapy
 scraper/data/*
+!scraper/data/.keep
+scraper/redis-data/*
+!scraper/redis-data/.keep
 
 # Sphinx documentation
 docs/_build/
