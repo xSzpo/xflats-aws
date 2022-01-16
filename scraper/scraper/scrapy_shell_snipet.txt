@@ -1,0 +1,30 @@
+import json
+import codecs
+from helpers.base import Geodata
+
+def load_xpj():
+    with codecs.open("./scraper/spiders/xhpats.json", "r") as file:
+        xpath_json = json.load(file)
+    return xpath_json
+
+xpath_json = load_xpj()
+
+def xp(xpath):
+    return response.xpath(xpath).getall()
+
+def xpr(xpath):
+    return response.xpath(xpath)
+
+def xpk(key):
+    k = load_xpj()['otodom']['article_page_iter_xpaths'][key]
+    return response.xpath(k).get()
+
+from helpers.base import Scraper
+
+regex = r'"dateCreated":"(20\d\d-[01]\d-[0-3]\d [0-3]\d:[0-5]\d:' + \
+        r'[0-5]\d)","dateModified":"(20\d\d-[01]\d-[0-3]\d ' + \
+        r'[0-3]\d:[0-5]\d:[0-5]\d)"'
+
+from dateutil.parser import parse
+Scraper.searchregex(response.body.decode(), regex, group=1, func=parse)
+

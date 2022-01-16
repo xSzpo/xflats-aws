@@ -1,0 +1,202 @@
+{
+      "otodom": {
+            "start_urls": [
+                  "https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/warszawa",
+                  "https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/zakopane"
+            ],
+            "list_page_start_xpath": "//div[@data-cy='search.listing']//li",
+            "list_page_iter_xpaths": {
+                  "url": "a[@data-cy='listing-item-link']/@href"
+            },
+            "next_page_css": "li.pager-next a::attr(href)",
+            "article_page_iter_xpaths": {
+                  "price": "//*[@aria-label='Cena']/text()",
+                  "name": "//*[@data-cy='adPageAdTitle']/text()",
+                  "location": "//a[@href='#map']/text()",
+                  "flat_size": "//div[@title='Powierzchnia']/following::div[1]/text()",
+                  "rooms": "//div[@title='Liczba pokoi']/following::div[1]/text()",
+                  "floor": "//div[@title='Piętro']/following::div[1]/text()",
+                  "price_m2": "//*[@aria-label='Cena za metr kwadratowy']/text()",
+                  "market": "//div[@title='Rynek']/following::div[1]/text()",
+                  "building_type": "//div[@title='Rodzaj zabudowy']/following::div[1]/text()",
+                  "description": "//*[@data-cy='adPageAdDescription']//text()",
+                  "number_of_floors": "//div[@title='Liczba pięter']/following::div[1]/text()",
+                  "building_material": "//div[@title='Materiał budynku']/following::div[1]/text()",
+                  "year_of_building": "//div[@title='Rok budowy']/following::div[1]/text()",
+                  "property_form": "//div[@title='Forma własności']/following::div[1]/text()",
+                  "additional_info":"//h2[contains(.,'Szczegóły ogłoszenia')]/following::div[1]/div//div//text()",
+                  "additional_info2":"//div[@role='region' and  contains(@aria-label,'')]/div//text()"
+                  
+            }
+      },
+      "olx": {
+            "start_urls": [
+                  "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/warszawa/?search%5Border%5D=created_at%3Adesc",
+                  "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/zakopane/?search%5Border%5D=created_at%3Adesc"
+            ],
+            "url": "//div[@class='offer-wrapper']//a[contains(@href,'www.olx.pl')]/@href",
+            "next_page_css": "span.fbold.next.abs.large a::attr(href)",
+            "article_page_iter_xpaths": {
+                  "tracking_id": "//span[contains(@class, 'css-9xy3gn-Text')]//text()[2]",
+                  "price": "//div[@data-testid='ad-price-container']/h3/text()[1]",
+                  "name": "//h1[@data-cy='ad_title']/text()",
+                  "flat_size": "//ul[@class='css-sfcl1s']//p[contains(text(),'Powierzchnia')]//text()",
+                  "rooms": "//ul[@class='css-sfcl1s']//p[contains(text(),'Liczba pokoi')]//text()",
+                  "floor": "//ul[@class='css-sfcl1s']//p[contains(text(),'Poziom')]//text()",
+                  "price_m2": "//ul[@class='css-sfcl1s']//p[contains(text(),'Cena za m')]//text()",
+                  "market": "//ul[@class='css-sfcl1s']//p[contains(text(),'Rynek')]//text()",
+                  "building_type": "//ul[@class='css-sfcl1s']//p[contains(text(),'Rodzaj zabudowy')]//text()",
+                  "description": "//div[@class='css-g5mtbi-Text']//text()[normalize-space()]",
+                  "additional_info": "//ul[@class='css-sfcl1s']//li//p//text()"
+            }
+      },
+      "gratka": {"start_urls": [
+                  "https://gratka.pl/nieruchomosci/mieszkania/warszawa/sprzedaz?sort=newest",
+                  "https://gratka.pl/nieruchomosci/mieszkania/zakopane/sprzedaz?sort=newest"
+            ],
+            "url_old":"//a[contains(@href,'gratka.pl/nieruchomosci/') and (@class='teaser__anchor' or @class='recommendedOffers__imgBox')]//@href",
+            "url":"//article[contains(@class,'teaserUnified')]/@data-href",
+            "main_page_date_modified":"//article[contains(@class,'teaserUnified')]//li[@class='teaserUnified__info']/text()[contains(.,'Aktualizacja:')]",
+            "next_page": "//a[@class='pagination__nextPage']/@href",
+            "article_page_iter_xpaths": {
+                  "price": "translate(//span[@class='priceInfo__value']/text()[normalize-space()],'\t\n','')",
+                  "name": "//h1[@class='sticker__title']/text()",
+                  "location": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Lokalizacja')]/b[@class='parameters__value']//a//text()",
+                  "flat_size": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Powierzchnia w m2')]/b[@class='parameters__value']/text()[normalize-space()]",
+                  "rooms": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Liczba pokoi')]/b[@class='parameters__value']/text()[normalize-space()]",
+                  "floor": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Piętro')]/b[@class='parameters__value']/text()[normalize-space()]",
+                  "price_m2": "translate(//span[@class='priceInfo__additional']/text()[normalize-space()],'\t\n','')",
+                  "building_type": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Typ zabudowy')]/b[@class='parameters__value']/text()[normalize-space()]",
+                  "description": "//div[@class='description']//text()[normalize-space()]",
+                  "additional_info":"//ul[@class='parameters__rolled']//text()",
+                  "number_of_floors": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Liczba pięter w budynku')]/b[@class='parameters__value']/text()[normalize-space()]",
+                  "building_material": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Materiał budynku')]/b[@class='parameters__value']/text()[normalize-space()]",
+                  "year_of_building": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Rok budowy')]/b[@class='parameters__value']/text()[normalize-space()]",
+                  "property_form": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Forma własności')]/b[@class='parameters__value']/text()[normalize-space()]"
+            }
+      },
+      "morizon": {
+            "start_urls": [
+                  "https://www.morizon.pl/mieszkania/najnowsze/warszawa/",
+                  "https://www.morizon.pl/mieszkania/najnowsze/zakopane/"
+            ],
+            "url": "//a[contains(@href,'www.morizon.pl/oferta/')]/@href",
+            "next_page": "//a[contains(@class,'mz-pagination-number__btn--next')]/@href",
+            "article_page_iter_xpaths": {
+                  "price": "//li[@class='paramIconPrice']/em",
+                  "name": "translate(//div[contains(@class,'summaryLocation')]//span/text()[normalize-space()],'\t\n','')",
+                  "location": "translate(//div[contains(@class,'summaryLocation')]//span/text()[normalize-space()],'\t\n','')",
+                  "flat_size": "//li[@class='paramIconLivingArea']/em",
+                  "rooms": "//li[@class='paramIconNumberOfRooms']/em",
+                  "floor": "translate(//section[@class='propertyDetails']//tr[contains(th/text(),'Piętro')]/td/text()[normalize-space()],'\t\n','')",
+                  "price_m2": "//li[@class='paramIconPriceM2']/em",
+                  "market": "translate(//section[@class='propertyDetails']//tr[contains(th/text(),'Rynek')]/td/text()[normalize-space()],'\t\n','')",
+                  "building_type": "translate(//section[@class='propertyDetails']//tr[contains(th/text(),'Typ budynku')]/td/text()[normalize-space()],'\t\n','')",
+                  "description": "//div[@class='description']//text()[normalize-space()]",
+                  "additional_info": "translate(//*[@id='propertyDetails']/div/section[1]/section[1],'\t\n','')",
+                  "number_of_floors": "translate(//section[@class='propertyDetails']//tr[contains(th/text(),'Liczba pięter')]/td/text()[normalize-space()],'\t\n','')",
+                  "building_material": "translate(//section[@class='propertyDetails']//tr[contains(th/text(),'Materiał budowlany')]/td/text()[normalize-space()],'\t\n','')",
+                  "year_of_building": "translate(//section[@class='propertyDetails']//tr[contains(th/text(),'Rok budowy')]/td/text()[normalize-space()],'\t\n','')",
+                  "property_form": "translate(//section[@class='propertyDetails']//tr[contains(th/text(),'Forma własności')]/td/text()[normalize-space()],'\t\n','')",
+                  "data_lat":"//div[@class='GoogleMap']/@data-lat",
+                  "data_lon": "//div[@class='GoogleMap']/@data-lng",
+                  "date_created":"//meta[@itemprop='name']/@content",
+                  "date_modified": "//section[@class='propertyDetails']//tr[contains(th/text(),'Zaktualizowano')]/td/text()[normalize-space()]"
+            }
+      },
+      "sprzedajemy_dzialka": {
+            "start_urls": [
+                  "https://sprzedajemy.pl/nieruchomosci/grunty-i-dzialki"
+            ],
+            "url": "//article[@class='element']/ul/li/h2[@class='title']/a/@href",
+            "main_page_date_modified": "//article[@class='element']/ul/li/time/@datetime",
+            "next_page_css": "li.next a::attr(href)",
+            "article_page_iter_xpaths": {
+                  "tracking_id": "normalize-space(substring-after(//div[@class='offerTitleBox']//li[contains(text(), 'Nr ogłoszenia')]/text()[1],':'))",
+                  "price": "normalize-space(//div[@class='offer-price-box']/div[@class='priceWrp']/strong/span/text())",
+                  "name": "normalize-space(//h1[@class='offerTitle']/strong/span/text())",
+                  "geo-coordinates": "//ul[@class='offerAdditionalInfo']/li/span/@data-coordinates",
+                  "location": "//ul[@class='offerAdditionalInfo']/li/span/span//text()",
+                  "size": "normalize-space(//div[@class='attributes-box']/ul//li[contains(span/text(),'Powierzchnia')]/strong)",
+                  "price_m2": "normalize-space(//div[@class='attributes-box']/ul//li[contains(span/text(),'Cena za m²')]/strong)",
+                  "description": "//div[@class='offerDescription']//text()",
+                  "offeror":"normalize-space(//div[@class='attributes-box']/ul//li[contains(span/text(),'Oferta od')]/strong)",
+                  "additional_info":"//div[@class='attributes-box']/ul//li//text()",
+                  "additional_info2" :"//div[@class='addtional-parameters-box']//text()"
+            }
+      },
+      "gumtree_dzialka": {
+            "start_urls": [
+                  "https://www.gumtree.pl/s-dzialki/v1c9194p1"
+            ],
+            "url": "//div[@class='view']//div[@class='tileV1']/div[@class='title']/a/@href",
+            "next_page": "//*[@id='pagination']/div/span[@class='pag-box']/a/@href",
+            "article_page_iter_xpaths": {
+                  "tracking_id": "normalize-space(substring-after(//span[@class='title']/text(),' '))",
+                  "price": "normalize-space(//div[@class='vip-title clearfix']//div[@class='price']//span[@class='amount']/text())",
+                  "name": "//h1[@class='item-title']/span[@class='myAdTitle']/text()",
+                  "geo-coordinates": "substring-after(//span[@class='google-maps-link']/@data-uri,'q=')",
+                  "location": "//div[@class='attribute' and contains(span/text(),'Lokalizacja')]//a/text()",
+                  "description": "//div[@class='description']//text()",
+                  "offeror":"//div[@class='attribute' and contains(span/text(),'Na sprzeda')]/span[@class='value']/text()",
+                  "date_created": "//div[@class='attribute' and contains(span/text(),'Data dodania')]/span[@class='value']/text()",
+                  "additional_info":"//div[@class='attributes-box']/ul//li//text()"
+            }
+      },
+      "olx_dzialka": {
+            "start_urls": [
+                  "https://www.olx.pl/nieruchomosci/dzialki/?search%5Border%5D=created_at%3Adesc"
+            ],
+            "url": "//a[contains(@href,'www.olx.pl/oferta')]/@href",
+            "next_page_css": "span.fbold.next.abs.large a::attr(href)",
+            "article_page_iter_xpaths": {
+                  "tracking_id": "//ul[@class='offer-bottombar__items']//li[contains(text(),'ID ogłoszenia')]/strong/text()",
+                  "price": "normalize-space(//div[@class='pricelabel']/strong/text())",
+                  "name": "normalize-space(//div[@class='offer-titlebox']/h1/text())",
+                  "location": "translate(//div[@class='offer-user__address']/address//text()[normalize-space()],'\t\n','')",
+                  "size": "//span[@class='offer-details__name' and contains(text(),'Powierzchnia')]/ancestor::li//strong[@class='offer-details__value']//text()",
+                  "price_m2": "//span[@class='offer-details__name' and contains(text(),'Cena za m')]/ancestor::li//strong[@class='offer-details__value']//text()",
+                  "description": "//div[contains(@class,'clr') and @id='textContent']//text()[normalize-space()]",
+                  "additional_info": "//ul[@class='offer-details']//text()",
+                  "offeror": "//span[@class='offer-details__name' and contains(text(),'Oferta od')]/ancestor::li//strong[@class='offer-details__value']//text()",
+                  "date_created": "//ul[@class='offer-bottombar__items']//li[contains(text(),'Dodane')]//strong/text()"
+            }
+      },
+      "gratka_dzialka": {
+            "start_urls": [
+                  "https://gratka.pl/nieruchomosci/dzialki-grunty?sort=newest"
+            ],
+            "url":"//article[contains(@class,'teaserUnified')]/@data-href",
+            "main_page_date_modified":"//article[contains(@class,'teaserUnified')]//li[@class='teaserUnified__info']/text()[contains(.,'Aktualizacja:')]",
+            "next_page": "//a[@class='pagination__nextPage']/@href",
+            "article_page_iter_xpaths": {
+                  "price": "translate(//span[@class='priceInfo__value']/text()[normalize-space()],'\t\n','')",
+                  "name": "//h1[@class='sticker__title']/text()",
+                  "location": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Lokalizacja')]/b[@class='parameters__value']//a//text()",
+                  "size": "//ul[@class='parameters__rolled']//li[contains(span/text(),'Powierzchnia działki w m2')]/b[@class='parameters__value']/text()[normalize-space()]",
+                  "price_m2": "translate(//span[@class='priceInfo__additional']/text()[normalize-space()],'\t\n','')",
+                  "description": "//div[@class='description']//text()[normalize-space()]",
+                  "additional_info":"//ul[@class='parameters__rolled']//text()"
+            }
+      },
+      "otodom_dziaka": {
+            "start_urls": [
+                  "https://www.otodom.pl/sprzedaz/dzialka/?search%5Border%5D=created_at_first%3Adesc"
+            ],
+            "list_page_start_xpath": "//div[@data-cy='frontend.search.listing']//li",
+            "list_page_iter_xpaths": {
+                  "url": "a/@href",
+                  "offeror":"a/article/div/p[1]//text()"
+            },
+            "next_page_css": "li.pager-next a::attr(href)",
+            "article_page_iter_xpaths": {
+                  "price": "//*[@aria-label='Cena']/text()",
+                  "name": "//*[@data-cy='adPageAdTitle']/text()",
+                  "location": "//a[@href='#map']/text()",
+                  "size": "//section[@class='section-overview']//li[contains(text(),'Powierzchnia')]/strong/text()[normalize-space()]",
+                  "price_m2": "//*[@aria-label='Cena za metr kwadratowy']/text()",
+                  "description": "//*[@data-cy='adPageAdDescription']//text()",
+                  "additional_info":"//h2[contains(.,'Informacje dodatkowe')]/following::ul[1]//li//text()"
+            }
+      }
+}
