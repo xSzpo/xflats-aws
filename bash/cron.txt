@@ -1,0 +1,1 @@
+0 6 * * * bash /home/ec2-user/xflats-aws/bash/copy_yesterdays_json_2_s3.sh

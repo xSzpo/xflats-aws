@@ -75,6 +75,8 @@ scraper/data/*
 !scraper/data/.keep
 scraper/redis-data/*
 !scraper/redis-data/.keep
+scraper/gz/
+!scraper/gz/.keep
 
 # Sphinx documentation
 docs/_build/
