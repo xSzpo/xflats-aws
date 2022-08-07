@@ -49,7 +49,8 @@ class SpiderFlatOtodom(scrapy.Spider):
         match = re.search(reg, response.url)
         if match:
             page_num = int(match.group(1))
-            next_page = response.url+f'?page={page_num+1}'
+            _url = response.url.split("?")[0]
+            next_page = _url+f'?page={page_num+1}'
         else:
             next_page = response.url+'?page=2'
 
