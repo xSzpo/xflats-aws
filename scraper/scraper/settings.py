@@ -31,7 +31,7 @@ CONCURRENT_REQUESTS = 4
 DOWNLOAD_DELAY = 3
 LOGSTATS_INTERVAL = 0
 CRAWL_LIST_PAGES = 99  # how many pages with links ]to crawl (start pages)
-
+SAVE_BODY = False
 
 ###################
 # PRODUCER SETTINGS
@@ -66,7 +66,7 @@ FIRESTORE_STR2DATE = ['download_date', 'date_created', 'date_modified']
 # local
 
 #LOCAL_FILE_DIR = "/Users/danielszponar/GoogleDrive/01_Projects/202003_xFlats_K8S/scraper/data/"
-LOCAL_FILE_DIR = "data_flats"
+LOCAL_FILE_DIR = "data"
 LOCAL_FILE_NAME = "data_plots"
 ADDDATE2NAME = True
 

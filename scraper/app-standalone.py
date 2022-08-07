@@ -36,6 +36,9 @@ def scraper(event={}, context={}):
     settings['REDIS_PORT'] = int(os.getenv('REDIS_PORT', '6379'))
     settings['REDIS_DB_INDEX'] = int(os.getenv('REDIS_DB_INDEX', '0'))
 
+    # CRAWL SETTINGS
+    settings['SAVE_BODY'] = int(os.getenv('SAVE_BODY', True))
+
     # local
     settings['LOCAL_FILE_DIR'] = os.getenv("JSONLINE_FILE_DIR","/app/data")
     settings['LOCAL_FILE_NAME'] = os.getenv("JSONLINE_FILE_NAME", "data_flats")
@@ -112,7 +115,6 @@ def scraper(event={}, context={}):
         return deferred
 
     spiders = os.getenv("SCRAPER_CRAWLER_NAME", "olx, otodom, gratka, morizon")
-    #spiders = os.getenv("SCRAPER_CRAWLER_NAME", "plot_sprzedajemy, plot_gumtree")
 
     for spider_name in [i.strip() for i in spiders.split(",")]:
         _crawl(None, spider_name)

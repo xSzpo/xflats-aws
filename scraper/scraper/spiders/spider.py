@@ -68,19 +68,25 @@ class SpiderFlatOtodom(scrapy.Spider):
         for key in self.article_page_iter_xpaths:
             tmp[key] = response.xpath(self.article_page_iter_xpaths[key]).get()
 
+        tmp['floor'] = tmp['floor'] if '/' not in tmp['floor'] else tmp['floor'].split('/')[0]
+        tmp['number_of_floors'] = None if '/' not in tmp['number_of_floors'] else tmp['number_of_floors'].split('/')[-1]
+
         #tmp['additional_info'] = " | ".join(
         #    response.xpath(self.article_page_iter_xpaths['additional_info']).getall()
         #    )
-        _tmp1  = response.xpath(self.article_page_iter_xpaths['additional_info']).getall()
-        _tmp2  = response.xpath(self.article_page_iter_xpaths['additional_info2']).getall()
+        _tmp1 = response.xpath(self.article_page_iter_xpaths['additional_info']).getall()
+        _tmp1 = [i for i in _tmp1 if '.css' not in i]
 
-        if len(_tmp1)>0:
-            tmp['additional_info']  = "|".join([" ".join(list(i)) for i in np.reshape(_tmp1, (-1, 3))])
+        _tmp2 = response.xpath(self.article_page_iter_xpaths['additional_info2']).getall()
+        _tmp2 = [i for i in _tmp2 if '.css' not in i]
+
+        if len(_tmp1) > 0:
+            tmp['additional_info'] = "|".join(_tmp1)
         else:
             tmp['additional_info'] = ""
 
-        if len(_tmp2)>0:
-            tmp['additional_info2']  = "|".join([" ".join(list(i)) for i in np.reshape(response.xpath(self.article_page_iter_xpaths['additional_info2']).getall(), (-1, 3))])
+        if len(_tmp2) > 0:
+            tmp['additional_info2'] = "|".join(_tmp2)
         else:
             tmp['additional_info'] = ""
         
@@ -108,7 +114,11 @@ class SpiderFlatOtodom(scrapy.Spider):
         tmp['producer_name'] = self.name
         tmp['main_url'] = self.start_urls[0]
         # zlib.decompress(base64.b64decode(x))
-        tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        if self.settings['SAVE_BODY']:
+            tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        else:
+            tmp.pop('body', None)
+        
         #tmp['offeror'] = offeror
         #_tmp = tmp.copy()
         #_tmp.pop('body')
@@ -189,7 +199,10 @@ class SpiderFlatOlx(scrapy.Spider):
         tmp['location'] = Scraper.searchregex(unidecode.unidecode(response.body.decode("utf-8")), r"pathName\W+([A-z,\s]+)", group=1).replace('\\','')
 
         #zlib.decompress(base64.b64decode(x))
-        tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        if self.settings['SAVE_BODY']:
+            tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        else:
+            tmp.pop('body', None)
 
         tmp['building_material'] = None
 
@@ -265,7 +278,10 @@ class SpiderFlatGratka(scrapy.Spider):
         tmp['main_url'] = self.start_urls[0]
 
         #zlib.decompress(base64.b64decode(x))
-        tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        if self.settings['SAVE_BODY']:
+            tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        else:
+            tmp.pop('body', None)
 
         yield tmp
 
@@ -340,7 +356,10 @@ class SpiderFlatMorizon(scrapy.Spider):
             get_createdate_polish_months(tmp['date_modified'])
 
         #zlib.decompress(base64.b64decode(x))
-        tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        if self.settings['SAVE_BODY']:
+            tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        else:
+            tmp.pop('body', None)
 
         yield tmp
 
@@ -426,7 +445,10 @@ class Spiderprzedajemy(scrapy.Spider):
         tmp['date_modified'] = parse(date_modified)
 
         #zlib.decompress(base64.b64decode(x))
-        tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        if self.settings['SAVE_BODY']:
+            tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        else:
+            tmp.pop('body', None)
 
         yield tmp
 
@@ -503,7 +525,10 @@ class SpiderPlotGumtree(scrapy.Spider):
         tmp['date_modified'] = None
 
         #zlib.decompress(base64.b64decode(x))
-        tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        if self.settings['SAVE_BODY']:
+            tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        else:
+            tmp.pop('body', None)
 
         yield tmp
 
@@ -564,7 +589,10 @@ class SpiderPlotOlx(scrapy.Spider):
         tmp['main_url'] = self.start_urls[0]
 
         #zlib.decompress(base64.b64decode(x))
-        tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        if self.settings['SAVE_BODY']:
+            tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        else:
+            tmp.pop('body', None)
 
         yield tmp
 
@@ -640,7 +668,10 @@ class SpiderPlotGratka(scrapy.Spider):
         tmp['main_url'] = self.start_urls[0]
 
         #zlib.decompress(base64.b64decode(x))
-        tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        if self.settings['SAVE_BODY']:
+            tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        else:
+            tmp.pop('body', None)
 
         yield tmp
 
@@ -714,6 +745,9 @@ class SpiderPlotOtodom(scrapy.Spider):
                                                   "ad.:{.id.:(\d+)", group=1)
 
         # zlib.decompress(base64.b64decode(x))
-        tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        if self.settings['SAVE_BODY']:
+            tmp['body'] = base64.b64encode(zlib.compress(response.body)).decode()
+        else:
+            tmp.pop('body', None)
 
         yield tmp

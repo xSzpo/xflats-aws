@@ -28,3 +28,13 @@ regex = r'"dateCreated":"(20\d\d-[01]\d-[0-3]\d [0-3]\d:[0-5]\d:' + \
 from dateutil.parser import parse
 Scraper.searchregex(response.body.decode(), regex, group=1, func=parse)
 
+
+# MANUAL
+list_page_start_xpath = xpath_json['otodom']['list_page_start_xpath']
+list_page_iter_xpaths = xpath_json['otodom']['list_page_iter_xpaths']
+
+for i, offer in enumerate(response.xpath(list_page_start_xpath)):
+    url = offer.xpath(list_page_iter_xpaths['url']).get()
+    if url:
+        url = 'https://www.otodom.pl'+url
+        print(url)
