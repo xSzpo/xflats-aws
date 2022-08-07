@@ -68,8 +68,9 @@ class SpiderFlatOtodom(scrapy.Spider):
         for key in self.article_page_iter_xpaths:
             tmp[key] = response.xpath(self.article_page_iter_xpaths[key]).get()
 
-        tmp['floor'] = tmp['floor'] if '/' not in tmp['floor'] else tmp['floor'].split('/')[0]
-        tmp['number_of_floors'] = None if '/' not in tmp['number_of_floors'] else tmp['number_of_floors'].split('/')[-1]
+        if tmp['floor']:
+            tmp['floor'] = tmp['floor'] if '/' not in tmp['floor'] else tmp['floor'].split('/')[0]
+            tmp['number_of_floors'] = None if '/' not in tmp['number_of_floors'] else tmp['number_of_floors'].split('/')[-1]
 
         #tmp['additional_info'] = " | ".join(
         #    response.xpath(self.article_page_iter_xpaths['additional_info']).getall()
